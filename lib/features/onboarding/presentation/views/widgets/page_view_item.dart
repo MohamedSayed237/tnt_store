@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tnt_store/constants.dart';
 import 'package:tnt_store/core/utils/app_images.dart';
+import 'package:tnt_store/core/utils/app_text_styles.dart';
+import 'package:tnt_store/features/auth/presentation/views/login_view.dart';
 
 class PageViewItem extends StatelessWidget {
   const PageViewItem(
@@ -9,10 +11,12 @@ class PageViewItem extends StatelessWidget {
       required this.image,
       required this.backgroundImage,
       required this.subtitle,
-      required this.title});
+      required this.title,
+      required this.isVisible});
 
   final String subtitle, backgroundImage;
   final Widget title, image;
+  final bool isVisible;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,13 +33,28 @@ class PageViewItem extends StatelessWidget {
                 ),
               ),
               Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Image.asset('assets/images/image_page_view_item.png')),
-              const Padding(
-                padding: EdgeInsets.all(16),
-                child: Text('تخطي'),
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Image.asset('assets/images/image_page_view_item.png'),
+              ),
+              Visibility(
+                visible: isVisible,
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushReplacementNamed(LoginView.routeName);
+                    },
+                    child: Text(
+                      'تخطي',
+                      style: TextStyles.regular13.copyWith(
+                        color: const Color(0xFF949D9E),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
@@ -44,10 +63,13 @@ class PageViewItem extends StatelessWidget {
         title,
         const SizedBox(height: 24),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
+          padding: const EdgeInsets.symmetric(horizontal: 37),
           child: Text(
             subtitle,
             textAlign: TextAlign.center,
+            style: TextStyles.semiBold13.copyWith(
+              color: const Color(0xFF4E5456),
+            ),
           ),
         ),
       ],
