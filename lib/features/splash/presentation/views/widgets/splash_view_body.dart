@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tnt_store/constants.dart';
+import 'package:tnt_store/core/services/shared_prefrences_singleton.dart';
+import 'package:tnt_store/features/auth/presentation/views/login_view.dart';
 import 'package:tnt_store/features/onboarding/presentation/views/on_boarding_view.dart';
 
 class SplashViewBody extends StatefulWidget {
@@ -26,10 +29,15 @@ class _SplashViewBodyState extends State<SplashViewBody> {
       ),
     ));
   }
-  
+
   void executeNavigation() {
+    bool isOnBoardingViewSeen = Prefs.getBool(kIsOnBoardingViewSeen);
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushNamed(context, OnBoardingView.routeName);
+      if (isOnBoardingViewSeen) {
+        Navigator.pushNamed(context, LoginView.routeName);
+      } else {
+        Navigator.pushNamed(context, OnBoardingView.routeName);
+      }
     });
   }
 }

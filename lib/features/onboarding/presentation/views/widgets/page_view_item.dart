@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tnt_store/constants.dart';
+import 'package:tnt_store/core/services/shared_prefrences_singleton.dart';
 import 'package:tnt_store/core/utils/app_images.dart';
 import 'package:tnt_store/core/utils/app_text_styles.dart';
 import 'package:tnt_store/features/auth/presentation/views/login_view.dart';
@@ -44,6 +45,7 @@ class PageViewItem extends StatelessWidget {
                   padding: EdgeInsets.all(16),
                   child: GestureDetector(
                     onTap: () {
+                      Prefs.setBool(kIsOnBoardingViewSeen, true);
                       Navigator.of(context)
                           .pushReplacementNamed(LoginView.routeName);
                     },
