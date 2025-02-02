@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "552334910122",
+    "project_id": "tnt-store-4ce51",
+    "storage_bucket": "tnt-store-4ce51.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552334910122:android:adb67b900a920d73b326d3",
+        "android_client_info": {
+          "package_name": "com.example.tnt_store"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFdUl8wjSJgb9qYz0bV-QGjbBgvn_q0y8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
