@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tnt_store/core/services/custom_bloc_observer.dart';
 import 'package:tnt_store/core/services/shared_prefrences_singleton.dart';
 import 'core/healper_functions/on_generate_routes.dart';
+import 'core/services/get_it_service.dart';
 import 'core/utils/app_colors.dart';
 import 'features/splash/presentation/views/splash_view.dart';
 import 'generated/l10n.dart';
@@ -10,11 +13,13 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = CustomBlocObserver();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
-  
+  );
+
   await Prefs.init();
+  setupGetIt();
   runApp(const TntStore());
 }
 
