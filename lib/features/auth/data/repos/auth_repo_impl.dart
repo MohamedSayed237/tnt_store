@@ -1,3 +1,6 @@
+
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:tnt_store/core/errors/exceptions.dart';
 import 'package:tnt_store/core/errors/failures.dart';
@@ -22,6 +25,7 @@ class AuthRepoImpl extends AuthRepo {
     } on CustomException catch (e) {
       return left(serverFailure(e.message));
     } catch (e) {
+      log('Exeption in AuthRepo.createUserWithEmailAndPassword: ${e.toString()}');
       return left(serverFailure('لقد حدث خطاء ما. برجاء المحاولة مرة اخرى'));
     }
   }
