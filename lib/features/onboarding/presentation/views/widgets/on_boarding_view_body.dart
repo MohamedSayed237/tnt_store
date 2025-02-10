@@ -5,7 +5,7 @@ import 'package:tnt_store/core/services/shared_prefrences_singleton.dart';
 import 'package:tnt_store/core/utils/app_colors.dart';
 import 'package:tnt_store/core/widgets/custom_button.dart';
 
-import '../../../../auth/presentation/views/login_view.dart';
+import '../../../../auth/presentation/views/signin_view.dart';
 import 'on_boarding_page_view.dart';
 
 class OnBoardingViewBody extends StatefulWidget {
@@ -63,7 +63,8 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
             child: CustomButton(
               onPressed: () {
                 Prefs.setBool(kIsOnBoardingViewSeen, true);
-                Navigator.of(context).pushReplacementNamed(LoginView.routeName);
+                Navigator.of(context)
+                    .pushReplacementNamed(SigninView.routeName);
               },
               text: 'ابدأ الان',
             ),

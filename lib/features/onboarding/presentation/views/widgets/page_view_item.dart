@@ -4,7 +4,7 @@ import 'package:tnt_store/constants.dart';
 import 'package:tnt_store/core/services/shared_prefrences_singleton.dart';
 import 'package:tnt_store/core/utils/app_images.dart';
 import 'package:tnt_store/core/utils/app_text_styles.dart';
-import 'package:tnt_store/features/auth/presentation/views/login_view.dart';
+import 'package:tnt_store/features/auth/presentation/views/signin_view.dart';
 
 class PageViewItem extends StatelessWidget {
   const PageViewItem(
@@ -47,7 +47,7 @@ class PageViewItem extends StatelessWidget {
                     onTap: () {
                       Prefs.setBool(kIsOnBoardingViewSeen, true);
                       Navigator.of(context)
-                          .pushReplacementNamed(LoginView.routeName);
+                          .pushReplacementNamed(SigninView.routeName);
                     },
                     child: Text(
                       'تخطي',
