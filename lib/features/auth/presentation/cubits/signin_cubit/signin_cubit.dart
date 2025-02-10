@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:tnt_store/core/errors/failures.dart';
 import 'package:tnt_store/features/auth/domain/entities/user_entity.dart';
 import 'package:tnt_store/features/auth/domain/repos/auth_repo.dart';
 

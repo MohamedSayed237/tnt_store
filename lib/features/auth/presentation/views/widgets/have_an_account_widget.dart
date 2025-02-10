@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:tnt_store/core/utils/app_colors.dart';
 import 'package:tnt_store/core/utils/app_text_styles.dart';
-import 'package:tnt_store/features/auth/presentation/views/signup_view.dart';
 
 class HaveAnAccountWidget extends StatelessWidget {
   const HaveAnAccountWidget({

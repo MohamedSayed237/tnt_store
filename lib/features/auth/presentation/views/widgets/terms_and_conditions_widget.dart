@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tnt_store/constants.dart';
 import 'package:tnt_store/core/utils/app_colors.dart';
 import 'package:tnt_store/core/utils/app_text_styles.dart';
 import 'package:tnt_store/features/auth/presentation/views/widgets/custom_check_box.dart';
