@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tnt_store/core/errors/exceptions.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+
 class FirebaseAuthService {
   Future<User> createUserWithEmailAndPassword(
       {required String email, required String password}) async {
@@ -34,56 +35,61 @@ class FirebaseAuthService {
     }
   }
 
-  Future<User> signInWithEmailAndPassword( 
-      {required String email, required String password}) async {    
+  Future<User> signInWithEmailAndPassword(
+      {required String email, required String password}) async {
     try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(    
-        email: email, 
-        password: password,    
-      );    
-      return credential.user!;    
-    } on FirebaseAuthException catch (e) {    
-      if (e.code == 'user-not-found') {    
-        throw CustomException(message: 'الرقم السري او البريد الالكتروني غير صحيح');    
-      } else if (e.code == 'wrong-password') {    
-        throw CustomException(message: 'الرقم السري او البريد الالكتروني غير صحيح');    
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return credential.user!;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        throw CustomException(
+            message: 'الرقم السري او البريد الالكتروني غير صحيح');
+      } else if (e.code == 'wrong-password') {
+        throw CustomException(
+            message: 'الرقم السري او البريد الالكتروني غير صحيح');
+      } else if (e.code == 'invalid-credential') {
+        throw CustomException(
+            message: 'الرقم السري او البريد الالكتروني غير صحيح');
       } else if (e.code == 'network-request-failed') {
-        throw CustomException(message: 'تأكد من اتصالك بالانترنت');    
+        throw CustomException(message: 'تأكد من اتصالك بالانترنت');
       } else {
         throw CustomException(
           message: 'لقد حدث خطاء ما. برجاء المحاولة مرة اخرى',
         );
-      }    
-    } catch (e) {    
-      log('Exeption in FirebaseAuthService.signInWithEmailAndPassword: ${e.toString()}');    
+      }
+    } catch (e) {
+      log('Exeption in FirebaseAuthService.signInWithEmailAndPassword: ${e.toString()}');
       throw CustomException(
         message: 'لقد حدث خطاء ما. برجاء المحاولة مرة اخرى',
       );
     }
-    }
+  }
 
- 
+  Future<User> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-Future<User> signInWithGoogle() async {
-  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
-  final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
 
-  final credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth?.accessToken,
-    idToken: googleAuth?.idToken,
-  );
+    return (await FirebaseAuth.instance.signInWithCredential(credential)).user!;
+  }
 
-  return (await FirebaseAuth.instance.signInWithCredential(credential)).user!;
-}
+  Future<User> signInWithFacebook() async {
+    final LoginResult loginResult = await FacebookAuth.instance.login();
 
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
-
-Future<User> signInWithFacebook() async {
-  final LoginResult loginResult = await FacebookAuth.instance.login();
-
-  final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
-
-  return (await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential)).user!;
-}
+    return (await FirebaseAuth.instance
+            .signInWithCredential(facebookAuthCredential))
+        .user!;
+  }
 }
