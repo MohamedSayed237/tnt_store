@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tnt_store/core/errors/exceptions.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 class FirebaseAuthService {
   Future<User> createUserWithEmailAndPassword(
       {required String email, required String password}) async {
@@ -74,5 +75,15 @@ Future<User> signInWithGoogle() async {
   );
 
   return (await FirebaseAuth.instance.signInWithCredential(credential)).user!;
+}
+
+
+
+Future<User> signInWithFacebook() async {
+  final LoginResult loginResult = await FacebookAuth.instance.login();
+
+  final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+  return (await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential)).user!;
 }
 }
